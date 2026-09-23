@@ -1,0 +1,52 @@
+# Runs the whole app: Postgres + FastAPI/Laya backend + React dashboard.
+#
+#   docker compose up --build        then open http://localhost:8080
+#
+# Secrets and settings come from .env (copy .env.example). The first start downloads
+# the Laya model (~1.7 GB) into the "models" volume; later starts reuse it.
+# The backend needs ~2.5 GB of RAM: give Docker Desktop at least 4 GB.
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: tickets
+      POSTGRES_USER: router
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-router}  # set a real one in .env for anything public
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U router -d tickets"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build: ./backend
+    env_file:
+      - path: .env
+        required: false  # without it, Laya still works; drafts and the fallback need GEMINI_API_KEY
+    environment:
+      # These override .env, because inside Docker the database is the "db" service.
+      DATABASE_URL: postgresql+psycopg://router:${POSTGRES_PASSWORD:-router}@db:5432/tickets
+      PRELOAD_LAYA: "true"
+    volumes:
+      - models:/models  # Hugging Face cache: the Laya weights survive container rebuilds
+    ports:
+      - "8000:8000"     # API docs at http://localhost:8000/docs
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend  # started, not healthy: the page loads while Laya is still warming up
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  models:

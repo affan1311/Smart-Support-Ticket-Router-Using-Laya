@@ -1,0 +1,23 @@
+# What the API needs at runtime (used by the Docker image).
+# The repo-root requirements.txt adds the benchmark and test tools on top of this.
+
+# --- Decision model (Laya) ---
+laya==0.3.6
+torch==2.14.0            # Docker installs the smaller CPU-only build of this version
+transformers==5.17.0
+huggingface_hub==1.32.0
+safetensors==0.8.0
+numpy==2.4.6
+
+# --- Reply drafting + fallback triage (Gemini) ---
+google-genai==2.25.0
+
+# --- API + database ---
+fastapi==0.141.1
+starlette==1.7.0
+uvicorn==0.53.0
+python-multipart==0.0.32
+SQLAlchemy==2.0.54
+psycopg[binary]==3.3.6   # Postgres driver (SQLite needs none)
+pydantic==2.13.5
+python-dotenv==1.2.3

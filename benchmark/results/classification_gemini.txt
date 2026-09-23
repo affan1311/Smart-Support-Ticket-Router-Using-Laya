@@ -1,0 +1,11 @@
+              precision    recall  f1-score   support
+
+     billing       0.92      1.00      0.96        71
+   technical       0.92      0.99      0.95        67
+    shipping       0.95      0.83      0.89        71
+     account       0.79      0.88      0.84        69
+     general       1.00      0.85      0.92        68
+
+    accuracy                           0.91       346
+   macro avg       0.92      0.91      0.91       346
+weighted avg       0.92      0.91      0.91       346

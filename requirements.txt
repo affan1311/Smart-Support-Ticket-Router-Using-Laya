@@ -1,0 +1,13 @@
+# Everything for local development: the API, plus benchmark and test tools.
+# Pinned versions, so installs are reproducible and the benchmark can be re-run exactly.
+-r backend/requirements.txt
+
+# --- Benchmark (Phase 4) ---
+pandas==3.0.6
+pyarrow==25.0.1
+scikit-learn==1.9.1
+matplotlib==3.11.2
+
+# --- Testing ---
+pytest==9.1.1
+httpx==0.28.1

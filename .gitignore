@@ -1,0 +1,20 @@
+# Secrets: never commit real keys
+.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local database
+*.db
+
+# Frontend (Phase 3)
+node_modules/
+frontend/dist/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store

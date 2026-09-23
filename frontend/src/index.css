@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+/*
+  Color tokens. Tailwind turns each --color-* into utilities (bg-surface, text-ink-2, ...).
+  Components use these roles, never raw hex, so dark mode is just a second set of values.
+  Chart colors come from a palette checked for colorblind safety (blue/orange, both modes).
+  "static" makes Tailwind output every variable, even ones no class uses (the charts
+  read some of them from JavaScript).
+*/
+@theme static {
+  --color-page: #f9f9f7;
+  --color-surface: #fcfcfb;
+  --color-ink: #0b0b0b;        /* primary text */
+  --color-ink-2: #52514e;      /* secondary text */
+  --color-muted: #898781;      /* labels, axis */
+  --color-line: #e1e0d9;       /* hairlines, gridlines */
+  --color-axis: #c3c2b7;
+
+  --color-accent: #2a78d6;     /* links, primary buttons, chart series 1 */
+  --color-series-2: #eb6834;   /* chart series 2 */
+
+  /* Status colors: only for state, always shown with a text label */
+  --color-good: #0ca30c;
+  --color-warning: #fab219;
+  --color-serious: #ec835a;
+  --color-critical: #d03b3b;
+  --color-good-text: #006300;
+  --color-critical-text: #b42323;
+
+  --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-page: #0d0d0d;
+    --color-surface: #1a1a19;
+    --color-ink: #ffffff;
+    --color-ink-2: #c3c2b7;
+    --color-muted: #898781;
+    --color-line: #2c2c2a;
+    --color-axis: #383835;
+    --color-accent: #3987e5;
+    --color-series-2: #d95926;
+    --color-good-text: #0ca30c;
+    --color-critical-text: #e66767;
+  }
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  @apply bg-page text-ink font-sans antialiased;
+}
+
+/* Numbers in tables line up in columns */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
