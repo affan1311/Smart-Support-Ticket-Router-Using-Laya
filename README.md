@@ -213,16 +213,4 @@ tiers (Render/Railway at 512 MB) can't run it. A small VM with 4 GB+ (for exampl
 droplet or EC2 `t3.medium`) running `docker compose up -d` works. Before exposing it publicly, set
 `POSTGRES_PASSWORD` in `.env`, and add authentication: the API has none, which is fine for a demo only.
 
-## What I'd do next
 
-1. **Cascade:** use Laya when it's confident, and hand uncertain tickets and every possible policy case
-   to Gemini. The saved benchmark predictions can simulate this for free.
-2. **Fine-tune Laya** on labeled tickets (including dashboard corrections), and fit per-question
-   temperatures to fix calibration.
-3. **Route non-English tickets** to `laya-multilingual` using laya's built-in `Router`.
-
-## Credits and licenses
-
-- Laya by Convai Innovations (Apache-2.0). Gemini via the `google-genai` SDK.
-- Benchmark data: Bitext customer support dataset (CDLA-Sharing-1.0) and Tobi-Bueck customer support
-  tickets (CC-BY-NC-4.0, non-commercial). `data/benchmark_labeled.csv` is derived from both.
